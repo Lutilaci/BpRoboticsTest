@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Objects;
 
 // Can I have a review pls?
@@ -21,7 +22,7 @@ public abstract class BasePage {
 
     final String BASE_URL = "https://icy-mushroom-0411fdf0f.1.azurestaticapps.net/";
     final String ADMIN_USER_NAME = "MainAdmin";
-    final String PARTNER_USER_NAME = "RepairMan";
+    final String PARTNER_USER_NAME = "LutiBpTest";
     final String CUSTOMER_USER_NAME = "ILoveRefrigerators";
     final String PASSWORD = "1234";
 
@@ -38,25 +39,29 @@ public abstract class BasePage {
         driver.manage().window().maximize();
     }
 
-    public void login(String userType){
+    public void login(String userType) throws InterruptedException {
         openUrl( "login");
         waitForWebElementToBePresent(userNameField);
 
         switch (userType){
             case "admin":
                 userNameField.sendKeys(ADMIN_USER_NAME);
+                passwordField.sendKeys(PASSWORD);
                 break;
             case "partner":
                 userNameField.sendKeys(PARTNER_USER_NAME);
+                passwordField.sendKeys("12345678");
                 break;
             case "customer":
                 userNameField.sendKeys(CUSTOMER_USER_NAME);
+                passwordField.sendKeys(PASSWORD);
                 break;
         }
 
-        passwordField.sendKeys(PASSWORD);
         loginButton.click();
-//        waitForWebElementToBePresent(logoutButton);
+        Thread.sleep(3000);
+
+        waitForWebElementToBePresent(logoutButton);
     }
 
     public void openUrl(String url){
@@ -78,12 +83,7 @@ public abstract class BasePage {
         return Objects.requireNonNullElse(string, "");
     }
 
-//    public static boolean validatePermissions(){
-//
-//    }
-
     public boolean isElementPresent(WebElement webElement){
         return webElement.isDisplayed();
     }
-
 }

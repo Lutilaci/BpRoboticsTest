@@ -11,19 +11,18 @@ import java.util.Arrays;
 import java.util.List;
 
 import static config.DriverSingleton.*;
+import static test.LogoutTest.startPage;
 
 public class LoginTest {
     static LoginPage loginPage;
-    static StartPage startPage;
 
     List<String> adminPermissions = Arrays.asList("Customers", "Orders", "Services", "Devices", "Partners", "Products", "Logout");
-//    List<String> partnerPermissions = Arrays.asList("Customers", "Orders", "Services", "Devices", "Partners", "Products", "Logout");
+    List<String> partnerPermissions = Arrays.asList("Customers", "Services", "Products", "Logout");
     List<String> customerPermissions = Arrays.asList("Profile", "Orders", "Devices", "Products", "Logout");
 
     @BeforeAll
     public static void setUp() {
         loginPage = new LoginPage();
-        startPage = new StartPage();
     }
 
     @AfterAll
@@ -32,49 +31,24 @@ public class LoginTest {
     }
 
     @Test
-    public void loginAsAdmin(){
+    public void loginAsAdmin() throws InterruptedException {
         loginPage.login("admin");
         loginPage.waitForWebElementToBePresent(startPage.logoutButton);
-        for (String adminPermission : adminPermissions) {
-            switch (adminPermission) {
-                case "Customers":
-                    startPage.isElementPresent(startPage.customersButton);
-                    break;
-                case "Orders":
-                    startPage.isElementPresent(startPage.ordersButton);
-                    break;
-                case "Services":
-                    startPage.isElementPresent(startPage.servicesButton);
-                    break;
-                case "Devices":
-                    startPage.isElementPresent(startPage.devicesButton);
-                    break;
-                case "Partners":
-                    startPage.isElementPresent(startPage.partnersButton);
-                    break;
-                case "Products":
-                    startPage.isElementPresent(startPage.productsButton);
-                    break;
-                case "Logout":
-                    startPage.isElementPresent(startPage.logoutButton);
-                    break;
-            }
-        }
+        loginPage.checkPermission(adminPermissions);
     }
 
     @Test
-    public void loginAsCustomer(){
+    public void loginAsCustomer() throws InterruptedException {
         loginPage.login("customer");
-        startPage.waitForWebElementToBePresent(startPage.logoutButton);
+        loginPage.waitForWebElementToBePresent(startPage.logoutButton);
+        loginPage.checkPermission(customerPermissions);
 
     }
 
     @Test
-    public void loginAsPartner(){
+    public void loginAsPartner() throws InterruptedException {
         loginPage.login("partner");
-        startPage.waitForWebElementToBePresent(startPage.logoutButton);
-
+        loginPage.waitForWebElementToBePresent(startPage.logoutButton);
+        loginPage.checkPermission(partnerPermissions);
     }
-
-
 }
