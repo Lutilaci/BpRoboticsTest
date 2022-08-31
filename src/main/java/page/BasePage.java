@@ -59,7 +59,7 @@ public abstract class BasePage {
         }
 
         loginButton.click();
-        Thread.sleep(3000);
+//        Thread.sleep(3000);
 
         waitForWebElementToBePresent(logoutButton);
     }
@@ -69,7 +69,7 @@ public abstract class BasePage {
     }
 
     public void waitForWebElementToBePresent(WebElement webElement){
-        wait.until(ExpectedConditions.elementToBeClickable(webElement));}
+        wait.until(ExpectedConditions.visibilityOf(webElement));}
 
     public void waitForElementToSendText(WebElement webElement, String text){
         wait.until(ExpectedConditions.elementToBeClickable(webElement)).sendKeys(text);}

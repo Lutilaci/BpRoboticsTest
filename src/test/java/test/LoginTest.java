@@ -42,7 +42,6 @@ public class LoginTest {
         loginPage.login("customer");
         loginPage.waitForWebElementToBePresent(startPage.logoutButton);
         loginPage.checkPermission(customerPermissions);
-
     }
 
     @Test
