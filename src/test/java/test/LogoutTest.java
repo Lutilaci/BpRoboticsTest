@@ -18,7 +18,7 @@ public class LogoutTest {
     List<String> logoutPermissions = Arrays.asList("Products", "Login");
 
     @BeforeAll
-    public static void setUp() throws InterruptedException {
+    public static void setUp(){
         startPage = new StartPage();
         loginPage = new LoginPage();
         loginPage.login("admin");
@@ -33,7 +33,5 @@ public class LogoutTest {
     public void logoutTest(){
         startPage.logoutButton.click();
         loginPage.checkPermission(logoutPermissions);
-
-
     }
 }
