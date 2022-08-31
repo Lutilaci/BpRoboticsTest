@@ -1,6 +1,7 @@
 package page;
 
 import config.DriverSingleton;
+import org.asynchttpclient.util.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,6 +28,8 @@ public abstract class BasePage {
     @FindBy(css = "div:nth-of-type(2) > .form-control") WebElement passwordField;
     @FindBy(css = "div:nth-of-type(1) > .form-control") WebElement userNameField;
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div/div/form/button") WebElement loginButton;
+    @FindBy (css = "#responsive-navbar-nav > div > a.active.nav-link") public WebElement logoutButton;
+
 
     public BasePage(){
         driver = DriverSingleton.getDriver();
@@ -53,6 +56,7 @@ public abstract class BasePage {
 
         passwordField.sendKeys(PASSWORD);
         loginButton.click();
+//        waitForWebElementToBePresent(logoutButton);
     }
 
     public void openUrl(String url){
@@ -77,5 +81,9 @@ public abstract class BasePage {
 //    public static boolean validatePermissions(){
 //
 //    }
+
+    public boolean isElementPresent(WebElement webElement){
+        return webElement.isDisplayed();
+    }
 
 }
