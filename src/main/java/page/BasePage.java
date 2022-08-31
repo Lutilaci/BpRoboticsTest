@@ -83,4 +83,21 @@ public abstract class BasePage {
     public boolean isElementPresent(WebElement webElement){
         return webElement.isDisplayed();
     }
+
+    public void logout(){
+        waitForElementToClick(logoutButton);
+    }
+
+    public void loginNewUser(String username, String password){
+        openUrl("login");
+        waitForWebElementToBePresent(userNameField);
+        userNameField.sendKeys(username);
+        passwordField.sendKeys(password);
+        loginButton.click();
+        wait.until(ExpectedConditions.visibilityOf(logoutButton));
+    }
+
+    public boolean loggedIn(){
+        return logoutButton.isDisplayed();
+    }
 }
