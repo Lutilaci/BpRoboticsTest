@@ -28,9 +28,12 @@ public abstract class BasePage {
     @FindBy(css = "div:nth-of-type(1) > .form-control") WebElement userNameField;
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div/div/form/button") WebElement loginButton;
 
+    @FindBy(linkText = "Logout")
+    WebElement logoutButton;
+
     public BasePage(){
         driver = DriverSingleton.getDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(4));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
         driver.manage().window().maximize();
     }
@@ -41,18 +44,19 @@ public abstract class BasePage {
 
         switch (userType){
             case "admin":
-                userNameField.sendKeys("ADMIN_USER_NAME");
+                userNameField.sendKeys(ADMIN_USER_NAME);
                 break;
             case "partner":
-                userNameField.sendKeys("PARTNER_USER_NAME");
+                userNameField.sendKeys(PARTNER_USER_NAME);
                 break;
             case "customer":
-                userNameField.sendKeys("CUSTOMER_USER_NAME");
+                userNameField.sendKeys(CUSTOMER_USER_NAME);
                 break;
         }
 
         passwordField.sendKeys(PASSWORD);
         loginButton.click();
+        wait.until(ExpectedConditions.visibilityOf(logoutButton));
     }
 
     public void openUrl(String url){
