@@ -7,4 +7,5 @@ public class DevicesPage extends BasePage{
 
     @FindBy (css = "tr:nth-of-type(2) > td:nth-of-type(8) > svg[role='img']") public WebElement downArrow;
 
+    public DevicesPage(){};
 }

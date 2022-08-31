@@ -1,7 +1,6 @@
 package page;
 
 import config.DriverSingleton;
-import org.asynchttpclient.util.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,10 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.Objects;
-
-// Can I have a review pls?
 
 public abstract class BasePage {
 

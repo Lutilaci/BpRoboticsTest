@@ -29,21 +29,21 @@ public class LoginTest {
     }
 
     @Test
-    public void loginAsAdmin() throws InterruptedException {
+    public void loginAsAdmin(){
         loginPage.login("admin");
         loginPage.waitForWebElementToBePresent(startPage.logoutButton);
         loginPage.checkPermission(adminPermissions);
     }
 
     @Test
-    public void loginAsCustomer() throws InterruptedException {
+    public void loginAsCustomer(){
         loginPage.login("customer");
         loginPage.waitForWebElementToBePresent(startPage.logoutButton);
         loginPage.checkPermission(customerPermissions);
     }
 
     @Test
-    public void loginAsPartner() throws InterruptedException {
+    public void loginAsPartner(){
         loginPage.login("partner");
         loginPage.waitForWebElementToBePresent(startPage.logoutButton);
         loginPage.checkPermission(partnerPermissions);

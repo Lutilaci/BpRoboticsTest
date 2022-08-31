@@ -1,7 +1,6 @@
 package page;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -43,6 +42,8 @@ public class UsersPage extends BasePage {
     }
 
     public void createUser(String username, String password, String fName, String lName, String role){
+        openUrl("users");
+        navigateToAddUser();
         wait.until(ExpectedConditions.visibilityOf(usernameField));
         usernameField.sendKeys(username);
         passwordField.sendKeys(password);

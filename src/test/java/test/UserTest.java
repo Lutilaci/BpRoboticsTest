@@ -29,8 +29,6 @@ public class UserTest {
         String firstName = "tester";
         String lastName = "bot";
         String role = "Admin";
-        usersPage.openUrl("users");
-        usersPage.navigateToAddUser();
         usersPage.createUser(username,password,firstName,lastName,role);
         usersPage.logout();
         usersPage.loginNewUser(username,password);
