@@ -22,24 +22,25 @@ public abstract class BasePage {
 
     final String BASE_URL = "https://icy-mushroom-0411fdf0f.1.azurestaticapps.net/";
     final String ADMIN_USER_NAME = "MainAdmin";
-    final String PARTNER_USER_NAME = "LutiBpTest";
+    final String PARTNER_USER_NAME = "RepairMan";
     final String CUSTOMER_USER_NAME = "ILoveRefrigerators";
     final String PASSWORD = "1234";
 
     @FindBy(css = "div:nth-of-type(2) > .form-control") WebElement passwordField;
     @FindBy(css = "div:nth-of-type(1) > .form-control") WebElement userNameField;
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div/div/form/button") WebElement loginButton;
-    @FindBy (css = "#responsive-navbar-nav > div > a.active.nav-link") public WebElement logoutButton;
 
+    @FindBy(linkText = "Logout")
+    WebElement logoutButton;
 
     public BasePage(){
         driver = DriverSingleton.getDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(4));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
         driver.manage().window().maximize();
     }
 
-    public void login(String userType) throws InterruptedException {
+    public void login(String userType){
         openUrl( "login");
         waitForWebElementToBePresent(userNameField);
 
@@ -50,7 +51,7 @@ public abstract class BasePage {
                 break;
             case "partner":
                 userNameField.sendKeys(PARTNER_USER_NAME);
-                passwordField.sendKeys("12345678");
+                passwordField.sendKeys(PASSWORD);
                 break;
             case "customer":
                 userNameField.sendKeys(CUSTOMER_USER_NAME);
@@ -59,9 +60,7 @@ public abstract class BasePage {
         }
 
         loginButton.click();
-//        Thread.sleep(3000);
-
-        waitForWebElementToBePresent(logoutButton);
+        wait.until(ExpectedConditions.visibilityOf(logoutButton));
     }
 
     public void openUrl(String url){
@@ -85,5 +84,22 @@ public abstract class BasePage {
 
     public boolean isElementPresent(WebElement webElement){
         return webElement.isDisplayed();
+    }
+
+    public void logout(){
+        waitForElementToClick(logoutButton);
+    }
+
+    public void loginNewUser(String username, String password){
+        openUrl("login");
+        waitForWebElementToBePresent(userNameField);
+        userNameField.sendKeys(username);
+        passwordField.sendKeys(password);
+        loginButton.click();
+        wait.until(ExpectedConditions.visibilityOf(logoutButton));
+    }
+
+    public boolean loggedIn(){
+        return logoutButton.isDisplayed();
     }
 }
