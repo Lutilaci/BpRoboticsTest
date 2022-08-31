@@ -2,17 +2,17 @@ package test;
 
 import org.junit.jupiter.api.*;
 
-import page.OrderPage;
+import page.OrdersPage;
 
 import static config.DriverSingleton.quit;
 
 public class OrderTest {
-    static OrderPage orderPage;
+    static OrdersPage ordersPage;
 
     @BeforeAll
     public static void setUp(){
-        orderPage = new OrderPage();
-        orderPage.login("admin");
+        ordersPage = new OrdersPage();
+        ordersPage.login("admin");
     }
 
 
@@ -25,12 +25,12 @@ public class OrderTest {
     public void createOrderSuccessful() {
         String customer = "Four Seasons";
         String product = "Smart Oven";
-        orderPage.openUrl("orders");
-        orderPage.openAddOrder();
-        orderPage.selectCustomer(customer);
-        orderPage.addProduct(product);
-        orderPage.createOrder();
-        Assertions.assertEquals(customer, orderPage.getLastRowCustomer());
-        Assertions.assertEquals(product+": 1", orderPage.getLastRowProduct());
+        ordersPage.openUrl("orders");
+        ordersPage.openAddOrder();
+        ordersPage.selectCustomer(customer);
+        ordersPage.addProduct(product);
+        ordersPage.createOrder();
+        Assertions.assertEquals(customer, ordersPage.getLastRowCustomer());
+        Assertions.assertEquals(product+": 1", ordersPage.getLastRowProduct());
     }
 }

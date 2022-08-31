@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
-public class OrderPage extends BasePage{
+public class OrdersPage extends BasePage{
 
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div/div/button")
     WebElement createNewOrderButton;
@@ -28,7 +28,7 @@ public class OrderPage extends BasePage{
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div/div/table/tbody/tr[last()]/td[4]")
     WebElement lastRowProduct;
 
-    public OrderPage() {
+    public OrdersPage() {
     }
 
     public void openAddOrder(){
