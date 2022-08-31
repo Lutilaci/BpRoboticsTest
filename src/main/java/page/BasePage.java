@@ -41,13 +41,13 @@ public abstract class BasePage {
 
         switch (userType){
             case "admin":
-                userNameField.sendKeys("ADMIN_USER_NAME");
+                userNameField.sendKeys(ADMIN_USER_NAME);
                 break;
             case "partner":
-                userNameField.sendKeys("PARTNER_USER_NAME");
+                userNameField.sendKeys(PARTNER_USER_NAME);
                 break;
             case "customer":
-                userNameField.sendKeys("CUSTOMER_USER_NAME");
+                userNameField.sendKeys(CUSTOMER_USER_NAME);
                 break;
         }
 
