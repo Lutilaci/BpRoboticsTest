@@ -25,6 +25,7 @@ public class ServiceTest {
     @Order(1)
     void firstTest() {
         System.out.println("first");
+//        servicePage.getTheLastRow();
     }
 
     @Test
