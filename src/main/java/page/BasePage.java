@@ -1,6 +1,7 @@
 package page;
 
 import config.DriverSingleton;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Objects;
 
 public abstract class BasePage {
@@ -32,6 +34,7 @@ public abstract class BasePage {
     public BasePage(){
         driver = DriverSingleton.getDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
         driver.manage().window().maximize();
     }
@@ -98,4 +101,5 @@ public abstract class BasePage {
     public boolean loggedIn(){
         return logoutButton.isDisplayed();
     }
+
 }
