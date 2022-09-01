@@ -23,6 +23,15 @@ public class ServicePage extends BasePage{
     @FindBy (css = "form > button[value='Create user']") public WebElement addServiceButton;
     @FindBy (xpath = "/html//div[@id='root']/div[@class='App']//table[@class='table']/tbody/tr[last()]/td[5]") public WebElement serviceStatus;
 
+    @FindBy (xpath = "//*[@id=\"root\"]/div/div/div/div/table/tbody/tr[last()]/td[1]")
+    WebElement lastPartnerName;
+
+    @FindBy (xpath = "//*[@id=\"root\"]/div/div/div/div/table/tbody/tr[last()]/td[4]")
+    WebElement lastServiceType;
+
+    @FindBy (xpath = "//*[@id=\"root\"]/div/div/div/div/table/tbody/tr[1]/td[8]/svg")
+    WebElement firstRowArrow;
+
     public ServicePage (){}
 
     public void updateFirstServiceSerial(String newSerial){
@@ -50,5 +59,10 @@ public class ServicePage extends BasePage{
         selectType.selectByVisibleText(serviceType);
         Select selectPartner = new Select(partnerSelector);
         selectPartner.selectByVisibleText(partner);
+    }
+
+    public boolean isLastService(String serviceType, String partner){
+        wait.until(ExpectedConditions.visibilityOf(lastPartnerName));
+        return lastPartnerName.getText().equals(partner) && lastServiceType.getText().equals(serviceType);
     }
 }

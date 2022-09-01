@@ -1,6 +1,7 @@
 package test;
 
 import org.junit.jupiter.api.*;
+import page.DevicesPage;
 import page.ServicePage;
 
 import static config.DriverSingleton.quit;
@@ -8,12 +9,13 @@ import static config.DriverSingleton.quit;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ServiceTest {
     static ServicePage servicePage;
+    static DevicesPage devicesPage;
 
     @BeforeAll
     public static void setUp(){
         servicePage = new ServicePage();
+        devicesPage = new DevicesPage();
         servicePage.login("admin");
-        servicePage.addNewService("Repair", "WeFixIt");
     }
 
     @AfterAll
@@ -24,6 +26,7 @@ public class ServiceTest {
     @Test
     @Order(1)
     void firstTest() {
+        servicePage.addNewService("Repair", "WeFixIt");
         servicePage.login("partner");
         servicePage.openUrl("services");
         servicePage.waitForElementToClick(servicePage.startButton);
@@ -53,5 +56,15 @@ public class ServiceTest {
         // need to refresh the page again
         servicePage.openUrl("services");
         Assertions.assertEquals(newSerial, servicePage.getFirstServiceSerial());
+    }
+
+    @Test
+    public void addNewServiceSuccessful() {
+        String type = "Repair";
+        String partner = "WeFixIt";
+        devicesPage.openUrl("devices");
+        devicesPage.addService(type,partner);
+        servicePage.openUrl("services");
+        Assertions.assertTrue(servicePage.isLastService(type,partner));
     }
 }
