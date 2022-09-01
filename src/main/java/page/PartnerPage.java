@@ -28,6 +28,7 @@ public class PartnerPage extends BasePage{
     @FindBy (xpath = "/html//div[@id='root']/div[@class='App']/div//table[@class='table table-striped']/tbody/tr[last()]/td[5]/button[1]") public WebElement editPartnerButton;
     @FindBy (xpath = "/html//div[@id='root']/div[@class='App']/div//table[@class='table table-striped']/tbody/tr[last()]/td[2]") public WebElement editedCompanyName;
     @FindBy (xpath = "/html//div[@id='root']/div[@class='App']/div//table[@class='table table-striped']/tbody/tr[last()]/td[3]") public WebElement editedPhoneNumber;
+    @FindBy (xpath = "/html//div[@id='root']/div[@class='App']/div//table[@class='table table-striped']//td[.='Luti BpTest']") public WebElement secondConnectedUser;
 
 
     public PartnerPage(){

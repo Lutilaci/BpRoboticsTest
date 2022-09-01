@@ -28,7 +28,7 @@ public class PartnerTest {
 
     @Test
     public void addNewPartner(){
-        usersPage.createUser(username, "12345678", "Test", "User", "Partner");
+//        usersPage.createUser(username, "12345678", "Test", "User", "Partner");
 
         partnerPage.openUrl("partners");
         partnerPage.waitForElementToClick(partnerPage.newButton);
@@ -53,6 +53,18 @@ public class PartnerTest {
         partnerPage.editPartner("WeFixIt", "+36694201337");
         Assertions.assertEquals("WeFixIt", partnerPage.getElementText(partnerPage.editedCompanyName));
         Assertions.assertEquals("+36694201337", partnerPage.getElementText(partnerPage.editedPhoneNumber));
+    }
+
+    @Test
+    public void deletePartner(){
+        partnerPage.openUrl("partners");
+        partnerPage.waitForElementToClick(partnerPage.deletePartnerButton);
+        partnerPage.waitUntilNotVisible(partnerPage.secondConnectedUser);
+
+        // Restore
+        partnerPage.openUrl("partners");
+        partnerPage.waitForElementToClick(partnerPage.newButton);
+        partnerPage.addPartner("Test User");
     }
 }
 
