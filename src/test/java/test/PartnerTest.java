@@ -20,11 +20,6 @@ public class PartnerTest {
         partnerPage.login("admin");
     }
 
-    @BeforeEach
-    public void createUser(){
-        usersPage.createUser(username, "12345678", "Test", "User", "Partner");
-
-    }
 
     @AfterAll
     public static void tearDown() {
@@ -33,6 +28,8 @@ public class PartnerTest {
 
     @Test
     public void addNewPartner(){
+        usersPage.createUser(username, "12345678", "Test", "User", "Partner");
+
         partnerPage.openUrl("partners");
         partnerPage.waitForElementToClick(partnerPage.newButton);
         partnerPage.addPartner("Test User");
@@ -42,7 +39,20 @@ public class PartnerTest {
 
         // Restore
         partnerPage.waitForElementToClick(partnerPage.deletePartnerButton);
-//        partnerPage.waitUntilNotVisible(partnerPage.lastRow);
+    }
+
+    @Test
+    public void editPartner(){
+        partnerPage.editPartner(partnerPage.companyName, partnerPage.phoneNumber);
+
+        // Validate
+        Assertions.assertEquals(partnerPage.companyName, partnerPage.getElementText(partnerPage.editedCompanyName));
+        Assertions.assertEquals(partnerPage.phoneNumber, partnerPage.getElementText(partnerPage.editedPhoneNumber));
+
+        // Restore
+        partnerPage.editPartner("WeFixIt", "+36694201337");
+        Assertions.assertEquals("WeFixIt", partnerPage.getElementText(partnerPage.editedCompanyName));
+        Assertions.assertEquals("+36694201337", partnerPage.getElementText(partnerPage.editedPhoneNumber));
     }
 }
 

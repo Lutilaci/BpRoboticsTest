@@ -1,6 +1,7 @@
 package page;
 
 import config.DriverSingleton;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -111,6 +112,17 @@ public abstract class BasePage {
 
     public boolean loggedIn(){
         return logoutButton.isDisplayed();
+    }
+
+    public void clearField(WebElement field){
+        String os = System.getProperty("os.name");
+        wait.until(ExpectedConditions.elementToBeClickable(field));
+        if (os.equals("Mac OS X")){
+            waitForElementToSendText(field, Keys.COMMAND + "a");
+        }else{
+            waitForElementToSendText(field, Keys.CONTROL + "a");
+        }
+//        field.sendKeys(Keys.DELETE);
     }
 
 }
