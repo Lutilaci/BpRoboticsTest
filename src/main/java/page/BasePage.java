@@ -1,7 +1,6 @@
 package page;
 
 import config.DriverSingleton;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,7 +9,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.Objects;
 
 public abstract class BasePage {
@@ -75,6 +73,10 @@ public abstract class BasePage {
     public void waitForElementToClick(WebElement webElement){
         wait.until(ExpectedConditions.elementToBeClickable(webElement)).click();}
 
+    public void waitUntilTextToBePresentInElement(WebElement element, String text){
+        wait.until(ExpectedConditions.textToBePresentInElement(element, text));
+    }
+
     public static void clickButton(WebElement webElement){webElement.click();}
 
     public static String nullToEmptyString(String string) {
@@ -84,6 +86,11 @@ public abstract class BasePage {
     public boolean isElementPresent(WebElement webElement){
         return webElement.isDisplayed();
     }
+
+    public String getElementText(WebElement webElement){
+        return webElement.getText();
+    }
+
 
     public void logout(){
         waitForElementToClick(logoutButton);

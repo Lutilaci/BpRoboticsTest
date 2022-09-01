@@ -3,7 +3,6 @@ package test;
 import org.junit.jupiter.api.*;
 import page.ServicePage;
 
-import static config.DriverSingleton.getDriver;
 import static config.DriverSingleton.quit;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -14,6 +13,7 @@ public class ServiceTest {
     public static void setUp(){
         servicePage = new ServicePage();
         servicePage.login("admin");
+        servicePage.addNewService("Repair", "WeFixIt");
     }
 
     @AfterAll
@@ -24,14 +24,25 @@ public class ServiceTest {
     @Test
     @Order(1)
     void firstTest() {
-        System.out.println("first");
-//        servicePage.getTheLastRow();
+        servicePage.login("partner");
+        servicePage.openUrl("services");
+        servicePage.waitForElementToClick(servicePage.startButton);
+
+        // Validate
+        servicePage.waitUntilTextToBePresentInElement(servicePage.serviceStatus, "InProgress");
+        Assertions.assertEquals("InProgress", servicePage.getElementText(servicePage.serviceStatus));
     }
 
     @Test
     @Order(2)
     void secondTest() {
-        System.out.println("second");
+        servicePage.login("partner");
+        servicePage.openUrl("services");
+        servicePage.waitForElementToClick(servicePage.finishButton);
+
+        // Validate
+        servicePage.waitUntilTextToBePresentInElement(servicePage.serviceStatus, "Done");
+        Assertions.assertEquals("Done", servicePage.getElementText(servicePage.serviceStatus));
     }
 
     @Test
