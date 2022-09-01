@@ -77,6 +77,10 @@ public abstract class BasePage {
         wait.until(ExpectedConditions.textToBePresentInElement(element, text));
     }
 
+    public void waitUntilNotVisible(WebElement webElement){
+        wait.until(ExpectedConditions.invisibilityOf(webElement));
+    }
+
     public static void clickButton(WebElement webElement){webElement.click();}
 
     public static String nullToEmptyString(String string) {
